@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProduitController!{% endblock %}
+
+{% block body %}
+
+    
+
+    <h1>Liste des produits</h1>
+    {% if produits is not empty %}
+        <table border="1" class="container">
+            <thread>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Catégorie</th>
+                    <th>Action</th>
+                </tr>
+            </thread>
+            <tbody>
+                {% for un_produit in produits %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('mon_produit', {'id': un_produit.id}) }}"> <!-- "path" = direction-->
+                            {{ un_produit.nom }}
+                            </a>
+                        </td>
+                        <td>{{ un_produit.description }}</td>
+                        <td>{{ un_produit.qte }}</td>
+                        <td>{{ un_produit.prix }}</td>
+                        <td>{{ un_produit.categorie }}</td> <!-- Doit avoir une catégorie le produit sinon message d'erreur rouge banal-->
+                        <td>
+                            <a href="{{ path('delete_produit', {'id': un_produit.id}) }}">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr> <!--Afficher la liste-->
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Il n'y a aucun produit</p>
+    {% endif %}
+
+    <br/>
+    <br/>
+
+    <h2>Ajouter un produit</h2>
+    {{ form(form_produit_new) }} <!--Afficher le formulaire du produit-->
+{% endblock %}
